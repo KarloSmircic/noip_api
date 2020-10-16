@@ -3,9 +3,9 @@ A little noip ddns api for python.
 
 
 ### Requirements 
-socket
-requests
-cryptography
+* socket
+* requests
+* cryptography
 
 ### Description
 * `login` function logs you in with your username and password
