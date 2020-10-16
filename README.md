@@ -8,12 +8,12 @@ requests
 cryptography
 
 ### Description
-`login` function logs you in with your username and password
-`saveLoginInfo` function save your username and password encrypted in noip.config file
-`loadLoginInfo` function loads your username and password from noip.config file
-`getCurrent` function returns current ip saved in your hostname
-`setDNS` function sets given ip to your hostname
-`getMyIP` function returns your current public ip address
+* `login` function logs you in with your username and password
+* `saveLoginInfo` function save your username and password encrypted in noip.config file
+* `loadLoginInfo` function loads your username and password from noip.config file
+* `getCurrent` function returns current ip saved in your hostname
+* `setDNS` function sets given ip to your hostname
+* `getMyIP` function returns your current public ip address
 
 ### Example 1
 ```py
