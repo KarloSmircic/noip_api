@@ -6,6 +6,7 @@ A little noip ddns api for python.
 * socket
 * requests
 * cryptography
+* BeautifulSoup4
 
 ### Description
 * `login` function logs you in with your username and password
@@ -14,6 +15,7 @@ A little noip ddns api for python.
 * `getCurrent` function returns current ip saved in your hostname
 * `setDNS` function sets given ip to your hostname
 * `getMyIP` function returns your current public ip address
+* `testOpenPort` function returns if your port is open, closed or filtered(when the routers firewall is blocking it) 
 
 ### Example 1
 ```py
