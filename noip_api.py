@@ -1,6 +1,7 @@
 import socket
 import requests
 from cryptography.fernet import Fernet
+from bs4 import BeautifulSoup
 
 class noip:
     def __init__(self, hostname):
@@ -41,3 +42,16 @@ class noip:
     def getMyIP(self):
         ip = requests.get("http://api.ipify.org").text
         return ip
+
+    def testOpenPort(self, host, port):
+        url = "https://www.ipfingerprints.com/scripts/getPortsInfo.php"
+        data = {"remoteHost":str(host), "start_port":str(port), "end_port":str(port),"normalScan":"Yes", "scan_type":"connect", "ping_type":"none"}
+        req = requests.post(url, data=data)
+        soup = BeautifulSoup(req.text.replace("\\n", "").replace("\\", ""), features="html.parser")
+        spans = soup.findAll("span", attrs={'class':'pass'})
+        if len(spans) >0:
+            return spans[0].text
+        else:
+            spans = soup.findAll("span", attrs={'class':'fail'})
+            return spans[0].text
+
