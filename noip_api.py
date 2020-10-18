@@ -33,11 +33,31 @@ class noip:
             self.password = decoded_password
 
     def getCurrent(self):
-        hostnameIp = socket.gethostbyname(self.hostname)
-        return hostnameIp
+        try:
+            hostnameIp = socket.gethostbyname(self.hostname)
+            return hostnameIp
+        except:
+            raise  error("Hostname supplied does not exist.")
 
     def setDNS(self, ip):
         r = requests.get("http://{}:{}@dynupdate.no-ip.com/nic/update?hostname={}&myip={}".format(self.username, self.password, self.hostname, ip))
+        response = r.text.split()[0]
+        if response == "good":
+            pass
+        elif response == "nochg":
+            pass
+        elif response == "nohost":
+            raise error("Hostname supplied does not exist under specified account.")
+        elif response == "badauth":
+            raise error("Invalid username password combination.")
+        elif response == "badagent":
+            raise error("Bad agent.")
+        elif response == "!donator":
+            raise error("An update request was sent, including a feature that is not available to that particular user such as offline options.")
+        elif response == "abuse":
+            raise error("Username is blocked due to abuse.")
+        elif response == "911":
+            raise error("A fatal error on noip side such as a database outage.")
 
     def getMyIP(self):
         ip = requests.get("http://api.ipify.org").text
@@ -55,3 +75,6 @@ class noip:
             spans = soup.findAll("span", attrs={'class':'fail'})
             return spans[0].text
 
+class error(Exception):
+    def __init__(self, message):
+        super().__init__(message)
